@@ -1,0 +1,17 @@
+ARG ImagePrefix=""
+FROM ${ImagePrefix}golang:1.22.2
+
+WORKDIR /app
+
+ENV CGO_ENABLED=0
+
+COPY .env .
+COPY go.* ./
+COPY migration/ .
+
+RUN go mod tidy && \
+    go build -o main
+
+ENV ENV=DEV
+
+CMD ["/app/main"]

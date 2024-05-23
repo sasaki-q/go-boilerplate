@@ -1,0 +1,12 @@
+FROM golang:1.22.2
+
+WORKDIR /app
+
+RUN go install github.com/cosmtrek/air@latest 
+
+COPY server/ ./
+RUN go mod tidy
+
+EXPOSE 8080
+
+CMD ["air", "-c", ".air.toml"]

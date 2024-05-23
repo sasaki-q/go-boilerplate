@@ -1,0 +1,37 @@
+
+services:
+  boilerplate_server:
+    container_name: boilerplate_server
+    build: 
+      context: .
+      dockerfile: ./docker/server/Dockerfile.dev
+    ports:
+      - 8080:8080
+    volumes:
+      - ./server:/app
+    env_file:
+      - .env
+    depends_on:
+      - boilerplate_db
+    networks:
+      - boilerplate
+
+  boilerplate_db:
+    image: postgres:14-alpine
+    container_name: boilerplate_db
+    ports:
+      - 5555:5432
+    environment:
+      TZ: "Asia/Tokyo"
+      POSTGRES_DB: boilerplate_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+    volumes:
+      - ./pq_volume:/var/lib/postgresql
+    networks:
+      - boilerplate
+
+networks:
+  boilerplate:
+    driver: bridge

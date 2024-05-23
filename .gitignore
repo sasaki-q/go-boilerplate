@@ -1,0 +1,23 @@
+# Binaries for programs and plugins
+cdk/*.exe
+cdk/*.exe~
+cdk/*.dll
+cdk/*.so
+cdk/*.dylib
+
+# Test binary, built with `go test -c`
+cdk/*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+cdk/*.out
+
+# go.sum should be committed
+cdk/!go.sum
+
+# CDK asset staging directory
+cdk/.cdk.staging
+cdk/cdk.out
+
+.env
+pq_volume
+server/tmp

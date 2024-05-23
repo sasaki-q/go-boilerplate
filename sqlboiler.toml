@@ -1,0 +1,12 @@
+add-enum-types=true
+output="server/models"
+wipe=true
+
+[psql]
+dbname  = "boilerplate_db"
+host    = "localhost"
+port    = 5555
+user    = "postgres"
+pass    = "postgres"
+schema  = "public"
+sslmode = "disable"
