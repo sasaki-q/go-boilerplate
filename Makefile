@@ -31,10 +31,10 @@ migration-file:
 # build-migration-container:
 # 	docker build -f docker/migration/Dockerfile.dev -t migration .
 
-build-migration-containe: # apple silicon
+build-migration-container: # apple silicon
 	docker build -f docker/migration/Dockerfile.dev -t migration --build-arg ImagePrefix=arm64v8/ .
 
-run-migration-container: build-migration-containe
+run-migration-container: build-migration-container
 	docker run --net container:boilerplate_db migration:latest
 
 openapi:

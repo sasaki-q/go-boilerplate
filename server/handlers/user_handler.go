@@ -34,6 +34,8 @@ func (h *UserHandler) GetUserList(w http.ResponseWriter, r *http.Request) {
 			CreatedAt: v.CreatedAt.Format("2006-01-02T15:04:05Z07:00"),
 		})
 	}
+
+	successResponse(w, r, resp)
 }
 func (h *UserHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
@@ -44,12 +46,16 @@ func (h *UserHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err := h.r.Create(ctx, &models.User{Name: rb.Name})
+	res, err := h.r.Create(ctx, &models.User{Name: rb.Name})
 	if err != nil {
 		h.h.l.Sugar().Errorf("CreateUser h.r.Create / %v", err)
 		errorResponse(w, r, http.StatusInternalServerError, err.Error())
 		return
 	}
 
-	return
+	successResponse(w, r, &restapi.UserResponse{
+		Id:        res.ID,
+		Name:      res.Name,
+		CreatedAt: res.CreatedAt.Format("2006-01-02T15:04:05Z07:00"),
+	})
 }
